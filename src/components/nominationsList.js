@@ -12,7 +12,7 @@ const NominationsList = () => {
 				backgroundColor: 'white',
 				boxShadow: '10px 10px 10px #cecece',
 				marginTop: '2%',
-				marginLeft: '5%',
+				// marginLeft: '5%',
 			}}
 		>
 			<h3>this is the nominations list</h3>
