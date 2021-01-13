@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import { Grid, TextField, InputAdornment } from '@material-ui/core';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
-import SearchResults from './searchResults';
+import { searchResults } from '../redux/actions';
 const SearchBar = () => {
 	const [queryKey, setQueryKey] = useState('');
 	const [resData, setResData] = useState();
+	const dispatch = useDispatch();
 	const handleSubmitSearch = () => {
 		var options = {
 			method: 'GET',
-			url: `http://www.omdbapi.com/?i=tt3896198&apikey=8c419cc4&type=movie&t=${queryKey}`,
+			url: `http://www.omdbapi.com/?i=tt3896198&apikey=8c419cc4&type=movie&s=${queryKey}`,
 		};
 
 		axios
 			.request(options)
 			.then((res) => {
-				console.log(res.data);
-				setResData(res.data);
+				// console.log(res.data.Search);
+				setResData(res.data.Search);
+				dispatch(searchResults(res.data.Search));
 			})
 			.catch((err) => console.error(err));
 	};
@@ -60,7 +63,7 @@ const SearchBar = () => {
 					</form>
 				</div>
 			</Grid>
-			<SearchResults queryKey={queryKey} resData={resData} />
+			{/* <SearchResults queryKey={queryKey} resData={resData} /> */}
 		</>
 	);
 };

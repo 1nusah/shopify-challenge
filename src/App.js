@@ -2,16 +2,20 @@ import './App.css';
 import { Grid } from '@material-ui/core';
 
 import SearchBar from './components/searchBar';
-import SearchResults from './components/searchResults';
 import NominationsList from './components/nominationsList';
+import store from './redux/store';
+import { Provider } from 'react-redux';
+import SearchResults from './components/SearchResults';
 function App({ props }) {
 	console.log(props);
 	return (
-		<Grid container className="app">
-			<SearchBar />
-			
-			<NominationsList />
-		</Grid>
+		<Provider store={store}>
+			<Grid container className="app">
+				<SearchBar />
+				<SearchResults />
+				<NominationsList />
+			</Grid>
+		</Provider>
 	);
 }
 
