@@ -15,12 +15,13 @@ const SearchResults = () => {
 			style={{
 				backgroundColor: 'white',
 				boxShadow: '10px 10px 10px #cecece',
-				marginTop: '2%',
+				marginTop: '5%',
 				marginRight: '2%',
 				maxHeight: '60vh',
 				overflowY: 'auto',
 			}}
 		>
+			<h2>Search Results </h2>
 			{searchResults.map((i) => (
 				<SearchItem
 					Title={i.Title}
@@ -37,17 +38,21 @@ const SearchItem = ({ Title, Year, Poster, imdbID }) => {
 	const nominationList = useSelector((state) => state.nominationList);
 
 	const addToList = () => {
-		nominationList.length < 5
-			? dispatch({
-					type: 'ADD_MOVIE',
-					item: {
-						imdbID,
-						Title,
-						Year,
-						Poster,
-					},
-			  })
-			: alert('You have reached a maximum of 5 entries please');
+		if (nominationList.some((item) => item.imdbID === imdbID))
+			alert('Movie already nominated');
+		else if (nominationList.length === 5) {
+			alert('Sorry you have nominated the max number of movies');
+		} else {
+			dispatch({
+				type: 'ADD_MOVIE',
+				item: {
+					imdbID,
+					Title,
+					Year,
+					Poster,
+				},
+			});
+		}
 	};
 
 	return (
@@ -73,9 +78,11 @@ const SearchItem = ({ Title, Year, Poster, imdbID }) => {
 						</li>
 					</ul>
 
-					<IconButton disableRipple size="small" onClick={addToList}>
-						<FavoriteBorderSharpIcon color="#ccc" />
-					</IconButton>
+					{!nominationList.some((item) => item.imdbID === imdbID) && (
+						<IconButton disableRipple size="small" onClick={addToList}>
+							<FavoriteBorderSharpIcon color="#ccc" />
+						</IconButton>
+					)}
 				</div>
 			</div>
 		</>

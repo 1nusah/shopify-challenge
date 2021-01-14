@@ -14,12 +14,13 @@ const NominationsList = () => {
 			style={{
 				backgroundColor: 'white',
 				boxShadow: '10px 10px 10px #cecece',
-				marginTop: '2%',
+				marginTop: '5%',
+				marginLeft: '5%',
 				maxHeight: '60vh',
 				overflowY: 'auto',
 			}}
 		>
-			<h3>this is the nominations list</h3>
+			<h2>This is your nomination list.</h2>
 			{nominationList.map((i) => (
 				<SearchItem
 					Title={i.Title}
